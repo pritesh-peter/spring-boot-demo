@@ -8,4 +8,5 @@ import com.dailycode.Springboot.demo.entity.Department;
 @Repository
 public interface DepartmentRepository extends JpaRepository<Department, Long>{
 
+	public Department findByDepartmentName(String departmentName);
 }
