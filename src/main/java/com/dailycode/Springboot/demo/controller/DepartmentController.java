@@ -2,6 +2,10 @@ package com.dailycode.Springboot.demo.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dailycode.Springboot.demo.entity.Department;
@@ -21,18 +24,23 @@ public class DepartmentController {
 	@Autowired
 	private DepartmentService departmentService;
 	
+	private final Logger LOGGER = LoggerFactory.getLogger(getClass());
+	
 	@PostMapping("/departments")
-	public Department saveDepartment(@RequestBody Department department) {
+	public Department saveDepartment(@Valid @RequestBody Department department) {
+		LOGGER.info("Inside saveDepartmentlist of DepartmentController");
 	return departmentService.saveDepartment(department);
 	}
 
 	@GetMapping("/departments")
 	public List<Department> fetchDepartmentList(){
+		LOGGER.info("Inside fetchDepartmentlist of DepartmentController");
 		return departmentService.fetchDepartmentList();
 	}
 	
 	@GetMapping("/departments/{id}")
 	public Department fetchDepartmentById(@PathVariable("id") Long departmentId) {
+		LOGGER.info("Inside fetchDepartmentByID of DepartmentController");
 	return departmentService.fetchDepartmentById(departmentId);
 	}
 	
