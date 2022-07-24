@@ -3,6 +3,7 @@ package com.dailycode.Springboot.demo.service;
 import java.util.List;
 
 import com.dailycode.Springboot.demo.entity.Department;
+import com.dailycode.Springboot.demo.error.DepartmentNotFoundException;
 
 public interface DepartmentService {
 
@@ -10,7 +11,7 @@ public interface DepartmentService {
 
 	public List<Department> fetchDepartmentList();
 
-	public Department fetchDepartmentById(Long departmentId);
+	public Department fetchDepartmentById(Long departmentId) throws DepartmentNotFoundException;
 
 	public void deleteDepartmentById(Long departmentId);
 
