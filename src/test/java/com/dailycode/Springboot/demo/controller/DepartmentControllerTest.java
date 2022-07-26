@@ -1,6 +1,7 @@
 package com.dailycode.Springboot.demo.controller;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.dailycode.Springboot.demo.entity.Department;
+import com.dailycode.Springboot.demo.error.DepartmentNotFoundException;
 import com.dailycode.Springboot.demo.service.DepartmentService;
 
 
@@ -64,7 +66,16 @@ class DepartmentControllerTest {
 	}
 
 	@Test
-	void testFetchDepartmentById() {
+	void testFetchDepartmentById() throws Exception {
+		Mockito.when(departmentService.fetchDepartmentById(1L))
+				.thenReturn(department);
+		
+		mockMvc.perform(MockMvcRequestBuilders.get("/departments/1")
+				.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andExpect(MockMvcResultMatchers.jsonPath("$.departmentName").
+						value(department.getDepartmentName()));
+		
 //		fail("Not yet implemented");
 	}
 
